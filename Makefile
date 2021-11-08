@@ -8,7 +8,8 @@ coverage:  ## Run tests with coverage
 
 deps:  ## Install dependencies
 	pip install --upgrade pip
-	pip install -r requirements.txt
+	pip install -r backend/requirements.txt
+	pip install -r frontend/requirements.txt
 
 testdeps:
 	pip install black coverage flake8 pytest
@@ -23,5 +24,7 @@ test:  ## Run tests
 	pytest -ra
 
 build:
+	make deps
+	make testdeps
 	make format
 	make coverage
