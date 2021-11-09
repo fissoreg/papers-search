@@ -6,8 +6,13 @@ Neural search engine for ML papers.
 
 ## Demo
 
+Usage is simple: input an abstract, get the matching papers. The following demo also showcases the finetuning functionality (notice how the paper marked as "irrelevant" is assigned a lower score after finetuning).
+
+![Search and finetuning demo](img/demo.gif)
+
 ## Dataset
 
+We used a stripped-down version of the [Kaggle arXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv/) in which only the following categories are retained: `cs.AI, cs.CL, cs.CV, cs.LG, cs.MA, cs.NE`
 
 ## Setting up the environment
 
@@ -102,3 +107,4 @@ Made possible by:
 - [Jina AI](https://jina.ai)
 - [Sentence-Transformers](https://www.sbert.net/)
 - [arXiv](https://arxiv.org): Thank you to arXiv for use of its open access interoperability.
+- [Kaggle](https://kaggle.com)
