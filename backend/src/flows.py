@@ -5,13 +5,19 @@ from backend_config import top_k, search_port
 
 # Using a standard indexer: https://hub.jina.ai/executor/zb38xlt4
 indexer = "jinahub://SimpleIndexer"
-    
+
+
 def index_flow():
-    flow = Flow(protocol="grpc").add(uses=SpecterExecutor).add(
+    flow = (
+        Flow(protocol="grpc")
+        .add(uses=SpecterExecutor)
+        .add(
             uses=indexer,
         )
+    )
 
     return flow
+
 
 def search_flow():
     flow = (

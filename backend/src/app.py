@@ -12,27 +12,34 @@ import argparse
 # https://stackoverflow.com/questions/15008758/parsing-boolean-values-with-argparse/36031646
 def str2bool(v):
     if isinstance(v, bool):
-       return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return v
+    if v.lower() in ("yes", "true", "t", "y", "1"):
         return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+    elif v.lower() in ("no", "false", "f", "n", "0"):
         return False
     else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+        raise argparse.ArgumentTypeError("Boolean value expected.")
 
 
 def get_args():
     # Command line arguments definitions
     parser = argparse.ArgumentParser()
-    parser.add_argument('--index',
-        dest='index',
+    parser.add_argument(
+        "--index",
+        dest="index",
         default=False,
-        action='store_true',
-        help="index the available documents"
+        action="store_true",
+        help="index the available documents",
     )
-    parser.add_argument("--n", type=int, default=0, help="when `--index` is used, specifies the number of documnts to index (0 indexes the full dataset)")
+    parser.add_argument(
+        "--n",
+        type=int,
+        default=0,
+        help="when `--index` is used, specifies the number of documnts to index (0 indexes the full dataset)",
+    )
 
     return parser.parse_args()
+
 
 def index(n):
     if not os.path.exists(papers_data_path):
@@ -46,8 +53,8 @@ def index(n):
 
     with open(papers_data_path) as data_file:
         docs_generator = from_csv(
-                data_file,
-                field_resolver={"source_id": "id"},
+            data_file,
+            field_resolver={"source_id": "id"},
         )
         papers = DocumentArray(docs_generator)
 
@@ -72,7 +79,7 @@ if args.index:
 
 # running the search/finetuning flow as a service
 flow = search_flow()
-flow.expose_endpoint('/finetune', summary='Finetune documents.', tags=['Finetuning'])
+flow.expose_endpoint("/finetune", summary="Finetune documents.", tags=["Finetuning"])
 
 with flow:
     log("Ready for searching.")

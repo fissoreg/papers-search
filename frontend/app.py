@@ -3,8 +3,10 @@ import json
 import streamlit as st
 import streamlit.components.v1 as components
 
+
 def get_text(title: str, abstract: str):
     return f"{title}[SEP]{abstract}"
+
 
 def search(abstract: str, host: str) -> dict:
     text = get_text("", abstract)
@@ -18,10 +20,10 @@ def search(abstract: str, host: str) -> dict:
         data=data,
     ).json()
 
-
     doc = content["data"]["docs"][0]
 
     return doc
+
 
 def finetune(doc: dict, match: dict, relevant: bool, host: str) -> dict:
     labeled = doc.copy()
@@ -43,8 +45,10 @@ def finetune(doc: dict, match: dict, relevant: bool, host: str) -> dict:
 
     return doc
 
+
 def match_score(match):
     return 1 - match["scores"]["cosine"]["value"]
+
 
 host = "http://localhost:8020"
 

@@ -2,9 +2,9 @@
 .PHONY: coverage deps testdeps lint test
 
 coverage:  ## Run tests with coverage
-	coverage erase
-	coverage run -m pytest -ra
-	coverage report -m
+	python -m coverage erase
+	python -m coverage run -m pytest -ra
+	python -m coverage report -m
 
 deps:  ## Install dependencies
 	pip install --upgrade pip
@@ -15,13 +15,13 @@ testdeps:
 	pip install black coverage flake8 pytest
 
 format:
-	black backend frontend tests
+	python -m black backend/src frontend/app.py tests
 
 lint:  ## Lint
-	flake8 backend frontend tests
+	python -m flake8 backend/src frontend/app.py tests
 
 test:  ## Run tests
-	pytest -ra
+	python -m pytest -ra
 
 build:
 	make deps
