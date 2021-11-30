@@ -104,7 +104,7 @@ $ make build
 
 This project is in its starting phase. If you are interested in contributing, don't hesitate to get in touch! (Or go straight to the Issues ;)).
 
-## Acknowledgments
+## Acknowledgements
 
 Made possible by:
 
