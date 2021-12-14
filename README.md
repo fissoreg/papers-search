@@ -28,7 +28,7 @@ For both the folders `frontend` and `backend`, run the following commands
 ```bash
 cd folder_to_go_into/ # `folder_to_go_into` is either `frontend` or `backend`
 
-python3 -m venv env
+python3 -m venv venv
 source venv/bin/activate
 
 pip install --upgrade pip
