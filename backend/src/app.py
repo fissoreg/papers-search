@@ -1,12 +1,13 @@
-from jina.types.document.generators import from_csv
-from jina import DocumentArray
-
-from flows import search_flow, index_flow
-from backend_config import papers_data_path, papers_data_url, top_k
-from helpers import download_csv, log
-
-import os
 import argparse
+import os
+
+from docarray import DocumentArray
+from docarray.document.generators import from_csv
+
+from backend_config import papers_data_path, papers_data_url
+from flows import index_flow, search_flow
+from helpers import download_csv, log, maximise_csv_field_size_limit
+
 
 # boolean args:
 # https://stackoverflow.com/questions/15008758/parsing-boolean-values-with-argparse/36031646
@@ -46,12 +47,9 @@ def index(n):
         log("Downloading data...")
         download_csv(papers_data_url, papers_data_path)
 
-    import sys
-    import csv
+    maximise_csv_field_size_limit()
 
-    csv.field_size_limit(sys.maxsize)
-
-    with open(papers_data_path) as data_file:
+    with open(papers_data_path, encoding="utf-8") as data_file:
         docs_generator = from_csv(
             data_file,
             field_resolver={"source_id": "id"},
