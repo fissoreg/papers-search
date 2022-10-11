@@ -1,7 +1,6 @@
 import requests
 import json
 import streamlit as st
-import streamlit.components.v1 as components
 
 
 def get_text(title: str, abstract: str):
@@ -20,7 +19,7 @@ def search(abstract: str, host: str) -> dict:
         data=data,
     ).json()
 
-    doc = content["data"]["docs"][0]
+    doc = content["data"][0]
 
     return doc
 
@@ -41,7 +40,7 @@ def finetune(doc: dict, match: dict, relevant: bool, host: str) -> dict:
         data=json.dumps(data),
     ).json()
 
-    doc = content["data"]["docs"][0]
+    doc = content["data"][0]
 
     return doc
 
