@@ -1,13 +1,13 @@
-import re
 import os
 
-from typing import Sequence, List, Tuple
-from sentence_transformers import SentenceTransformer, InputExample, losses
+from jina import DocumentArray, Executor, requests
+from sentence_transformers import InputExample, SentenceTransformer, losses
 from torch.utils.data import DataLoader
-from jina import Executor, requests, Document, DocumentArray
 
-from backend_config import top_k, embedding_model
+from config import config
 from helpers import log
+
+embedding_model = config["embedding_model"].get()
 
 
 def get_model_dir():
