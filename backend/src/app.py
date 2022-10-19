@@ -4,42 +4,12 @@ import os
 from docarray import DocumentArray
 from docarray.document.generators import from_csv
 
-from backend_config import papers_data_path, papers_data_url
+from config import config, create_parser
 from flows import index_flow, search_flow
 from helpers import download_csv, log, maximise_csv_field_size_limit
 
-
-# boolean args:
-# https://stackoverflow.com/questions/15008758/parsing-boolean-values-with-argparse/36031646
-def str2bool(v):
-    if isinstance(v, bool):
-        return v
-    if v.lower() in ("yes", "true", "t", "y", "1"):
-        return True
-    elif v.lower() in ("no", "false", "f", "n", "0"):
-        return False
-    else:
-        raise argparse.ArgumentTypeError("Boolean value expected.")
-
-
-def get_args():
-    # Command line arguments definitions
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--index",
-        dest="index",
-        default=False,
-        action="store_true",
-        help="index the available documents",
-    )
-    parser.add_argument(
-        "--n",
-        type=int,
-        default=0,
-        help="when `--index` is used, specifies the number of documnts to index (0 indexes the full dataset)",
-    )
-
-    return parser.parse_args()
+papers_data_path = config["papers_data_path"].get()
+papers_data_url = config["papers_data_url"].get()
 
 
 def index(n):
@@ -70,12 +40,13 @@ def index(n):
         indexer.index(papers, request_size=32)
 
 
-args = get_args()
+args = create_parser()
+config.set_args(args)
 
 if args.index:
     index(args.n)
 
-# running the search/finetuning flow as a service
+    # running the search/finetuning flow as a service
 flow = search_flow()
 flow.expose_endpoint("/finetune", summary="Finetune documents.", tags=["Finetuning"])
 
