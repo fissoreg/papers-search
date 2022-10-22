@@ -72,7 +72,6 @@ class SpecterExecutor(Executor):
         train_data = []
 
         for doc in docs:
-            matches = doc.matches
             for match in doc.matches:
                 train_data.append(
                     InputExample(
