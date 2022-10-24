@@ -1,5 +1,6 @@
-import requests
 import json
+
+import requests
 import streamlit as st
 
 
@@ -27,8 +28,8 @@ def search(abstract: str, host: str) -> dict:
 def finetune(doc: dict, match: dict, relevant: bool, host: str) -> dict:
     labeled = doc.copy()
 
-    labeled["tags"]["finetuner"] = {"label": 1 if relevant else -1}
-    match["tags"]["finetuner"] = {"label": 1 if relevant else -1}
+    labeled["tags"] = {"finetuner": {"label": 1 if relevant else -1}}
+    match["tags"] = {"finetuner": {"label": 1 if relevant else -1}}
     labeled["matches"] = [match]
     data = {"data": [labeled]}
 
@@ -58,7 +59,6 @@ query = st.text_area("Paper's abstract")
 if st.button(label="Search") or query:
     if query:
         doc = search(query, host)
-
         max_score = max(match_score(match) for match in doc["matches"])
 
         for match in doc["matches"]:
@@ -78,14 +78,14 @@ if st.button(label="Search") or query:
                 with col1:
                     st.metric("Similarity (1 is best)", score, score_diff)
                 with col2:
-                    if st.button("✔️ Mark as relevant", id):
+                    if st.button("✔️ Mark as relevant", id + "1"):
                         with st.spinner("Finetuning..."):
                             finetune(doc, match, True, host)
                         st.success("Finetuned!")
                         st.experimental_rerun()
 
                 with col3:
-                    if st.button("✖️ Mark as irrelevant", id):
+                    if st.button("✖️ Mark as irrelevant", id + "0"):
                         with st.spinner("Finetuning..."):
                             finetune(doc, match, False, host)
                         st.success("Finetuned!")

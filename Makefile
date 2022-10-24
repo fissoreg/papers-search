@@ -3,8 +3,9 @@
 
 coverage:  ## Run tests with coverage
 	python -m coverage erase
-	python -m coverage run -m pytest -ra
+	python -m coverage run -m pytest -ra -v
 	python -m coverage report -m
+	python -m coverage html
 
 deps:  ## Install dependencies
 	pip install --upgrade pip
@@ -21,7 +22,7 @@ lint:  ## Lint
 	python -m flake8 backend/src frontend/app.py tests
 
 test:  ## Run tests
-	python -m pytest -ra
+	python -m pytest -ra -v
 
 build:
 	make deps

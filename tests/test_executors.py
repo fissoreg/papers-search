@@ -23,17 +23,14 @@ def label_doc(docs):
     d = Document(text=papers[0])
 
     matches = DocumentArray(
-        [Document(text=seq, tags={"finetuner": {"label": 1}}) for seq in papers[1:]]
+        [Document(text=seq, tags={"finetuner": {"label": 1.0}}) for seq in papers[1:]]
     )
-
     d.matches.extend(matches)
-
     return d
 
 
 def encode_sequences(docs):
     embedded_docs = SpecterExecutor().encode(docs)
-
     return embedded_docs
 
 
@@ -55,3 +52,8 @@ def test_search():
         results = flow.search(docs)
 
     return results
+
+
+def test_finetuner():
+    labelled_docs = DocumentArray(label_doc(docs))
+    SpecterExecutor().finetune(labelled_docs)
