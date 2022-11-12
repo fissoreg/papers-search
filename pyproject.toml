@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "paper-search"
+version = "0.1.0"
+description = "Neural search engine for ML papers."
+authors = ["Giancarlo Fissore <giancarlo.fissore@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.backend]
+[tool.poetry.group.backend.dependencies]
+jina = "^3.11.0"
+sentence-transformers = "^2.2.2"
+
+[tool.poetry.group.frontend]
+[tool.poetry.group.frontend.dependencies]
+requests = "^2.28.1"
+streamlit = "^1.14.0"
+
+[tool.poetry.group.dev]
+[tool.poetry.group.dev.dependencies]
+flake8 = "^3.7"
+black = "^19.10b0"
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

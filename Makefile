@@ -7,12 +7,14 @@ coverage:  ## Run tests with coverage
 	python -m coverage report -m
 
 deps:  ## Install dependencies
-	pip install --upgrade pip
-	pip install -r backend/requirements.txt
-	pip install -r frontend/requirements.txt
+	poetry install --only backend
+	poetry install --only frontend
 
 testdeps:
-	pip install black coverage flake8 pytest
+	poetry install --only dev
+
+updatedeps:
+	poetry update
 
 format:
 	python -m black backend/src frontend/app.py tests
