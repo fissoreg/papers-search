@@ -23,16 +23,14 @@ git clone https://github.com/fissoreg/papers-search/
 cd papers-search
 ```
 
-For both the folders `frontend` and `backend`, run the following commands
-
+Install [poetry](https://python-poetry.org/), then for both the folders `frontend` and `backend`, run the following commands
 ```bash
 cd folder_to_go_into/ # `folder_to_go_into` is either `frontend` or `backend`
 
 python3 -m venv venv
 source venv/bin/activate
 
-pip install --upgrade pip
-pip install -r requirements.txt
+poetry install --only folder_to_go_into
 ```
 
 ## Indexing
